@@ -17,4 +17,7 @@ module.exports = function(app) {
   app.route('/picPaths')
     .get(todoList.list_all_paths)
     .post(todoList.create_a_path);
+
+  app.route('/picPaths/:taskId')
+    .put(todoList.update_a_path);
 };

@@ -47,6 +47,10 @@ var PicPathSchema = new Schema({
   Created_date: {
     type: Date,
     default: Date.now
+  },
+  like: {
+    type: String,
+    default: '0'
   }
 });
 
