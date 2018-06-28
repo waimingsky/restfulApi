@@ -25,7 +25,7 @@ exports.create_a_path = function(req, res) {
 
 
 exports.update_a_path = function(req, res) {
-  PicPath.findOneAndUpdate({_id: req.params.taskId}, req.body, {new: true}, function(err, task) {
+  PicPath.findOneAndUpdate({_id: req.params.taskId}, {$set:{like: req.params.likeValue}}, {new: true}, function(err, task) {
     if (err)
       res.send(err);
     res.json(task);

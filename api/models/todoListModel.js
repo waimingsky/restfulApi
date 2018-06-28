@@ -49,7 +49,7 @@ var PicPathSchema = new Schema({
     default: Date.now
   },
   like: {
-    type: String,
+    type: Number,
     default: '0'
   }
 });
