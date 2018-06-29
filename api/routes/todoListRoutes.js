@@ -18,6 +18,6 @@ module.exports = function(app) {
     .get(todoList.list_all_paths)
     .post(todoList.create_a_path);
 
-  app.route('/picPaths/:taskId/:likeValue')
+  app.route('/picPaths/:taskId/:likeValue/:dislikeValue')
     .put(todoList.update_a_path);
 };
