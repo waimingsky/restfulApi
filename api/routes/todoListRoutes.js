@@ -20,4 +20,9 @@ module.exports = function(app) {
 
   app.route('/picPaths/:taskId/:likeValue/:dislikeValue')
     .put(todoList.update_a_path);
+
+
+  app.route('/fileUpload')
+    .post(todoList.upload_a_file);
+
 };

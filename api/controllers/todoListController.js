@@ -1,9 +1,32 @@
 'use strict';
 
+var multer = require('multer');
 
 var mongoose = require('mongoose'),
   Task = mongoose.model('Tasks'),
   PicPath = mongoose.model('PicPaths');
+
+var Storage = multer.diskStorage({
+     destination: function(req, file, callback) {
+         callback(null, '/home/sky/images');
+     },
+     filename: function(req, file, callback) {
+         callback(null, file.fieldname + "_" + file.originalname);
+     }
+});
+
+var upload = multer({storage: Storage}).single('imageUpload');;
+
+exports.upload_a_file = function(req, res) {
+  upload(req,res,function(err){
+            if(err){
+                 res.json({error_code:1,err_desc:err});
+                 return;
+            }
+             res.json({error_code:0,err_desc:null});
+  });
+};
+
 
 exports.list_all_paths = function(req, res) {
   PicPath.find({}, function(err, task) {
