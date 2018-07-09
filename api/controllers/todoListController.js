@@ -15,7 +15,7 @@ var Storage = multer.diskStorage({
      }
 });
 
-var upload = multer({storage: Storage}).single('imageUpload');;
+var upload = multer({storage: Storage}).single('imageUpload');
 
 exports.upload_a_file = function(req, res) {
   upload(req,res,function(err){
@@ -27,6 +27,14 @@ exports.upload_a_file = function(req, res) {
   });
 };
 
+
+exports.update_a_comment = function(req, res) {
+  PicPath.findOneAndUpdate({_id: req.params.taskId}, {$set: req.body}, {new: true}, function(err, task) {
+    if (err)
+      res.send(err);
+    res.json(task);
+  });
+};
 
 exports.list_all_paths = function(req, res) {
   PicPath.find({}, function(err, task) {

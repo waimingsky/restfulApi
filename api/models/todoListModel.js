@@ -44,6 +44,9 @@ var PicPathSchema = new Schema({
     type: String,
     required: 'Kindly enter the url/directory of the picture'
   },
+  comment: {
+    type: [],
+  },
   Created_date: {
     type: Date,
     default: Date.now

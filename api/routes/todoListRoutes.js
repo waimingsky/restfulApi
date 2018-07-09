@@ -22,6 +22,9 @@ module.exports = function(app) {
     .put(todoList.update_a_path);
 
 
+  app.route('/picPaths/updateComment/:taskId')
+    .put(todoList.update_a_comment);
+
   app.route('/fileUpload')
     .post(todoList.upload_a_file);
 
