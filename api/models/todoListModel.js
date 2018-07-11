@@ -61,5 +61,28 @@ var PicPathSchema = new Schema({
   }
 });
 
+var UserInfoSchema = new Schema({
+  username: {
+    type: String,
+    required: 'Kindly enter new username'
+  },
+  password: {
+    type: String,
+    required: 'Kindly enter the new password'
+  },
+  email: {
+    type: String,
+    required: 'Kindly enter the your email address'
+  },
+  address: {
+    type: String,
+  },
+  Created_date: {
+    type: Date,
+    default: Date.now
+  }
+});
+
 module.exports = mongoose.model('Tasks', TaskSchema);
 module.exports = mongoose.model('PicPaths', PicPathSchema);
+module.exports = mongoose.model('UserInfos', UserInfoSchema);

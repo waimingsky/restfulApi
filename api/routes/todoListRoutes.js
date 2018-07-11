@@ -28,4 +28,7 @@ module.exports = function(app) {
   app.route('/fileUpload')
     .post(todoList.upload_a_file);
 
+  app.route('/userInfos')
+    .get(todoList.list_all_userinfos)
+    .post(todoList.create_a_userinfo);
 };
