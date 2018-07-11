@@ -131,7 +131,7 @@ exports.create_a_userinfo = function(req, res) {
   var new_task = new UserInfo(req.body);
   new_task.save(function(err, task) {
     if (err)
-      res.send(err);
+      return res.send(err);
 
     var token = jwt.sign({ id: task._id }, config.secret, {
       expiresIn: 86400 // expires in 24 hours
@@ -145,7 +145,9 @@ exports.create_a_userinfo = function(req, res) {
 
 exports.read_a_userinfo = function(req, res) {
   UserInfo.findOne({username: req.body.username}, function(err, task) {
-    if (err)  res.send(err);
+    if (err)  
+      return res.send(err);
+    
     if (!task) 
       return res.status(404).send('No user found.');
 
