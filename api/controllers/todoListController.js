@@ -17,6 +17,9 @@ var Storage = multer.diskStorage({
 });
 
 var upload = multer({storage: Storage}).single('imageUpload');
+var jwt = require('jsonwebtoken');
+var bcrypt = require('bcryptjs');
+var config = require('../../config');
 
 exports.upload_a_file = function(req, res) {
   upload(req,res,function(err){
@@ -129,7 +132,31 @@ exports.create_a_userinfo = function(req, res) {
   new_task.save(function(err, task) {
     if (err)
       res.send(err);
-    res.json(task);
+
+    var token = jwt.sign({ id: task._id }, config.secret, {
+      expiresIn: 86400 // expires in 24 hours
+    });
+    res.status(200).send({ auth: true, token: token });
+
+    //res.json(task);
   });
 };
 
+
+exports.read_a_userinfo = function(req, res) {
+  UserInfo.findOne({username: req.body.username}, function(err, task) {
+    if (err)  res.send(err);
+    if (!task) 
+      return res.status(404).send('No user found.');
+
+    //var passwordIsValid = bcrypt.compareSync(req.body.password, task.password);
+    if (req.body.password != task.password) 
+      return res.status(401).send({ auth: false, token: null }); 
+     
+    var token = jwt.sign({ id: task._id }, config.secret, {
+      expiresIn: 86400 // expires in 24 hours
+    });
+    res.status(200).send({ auth: true, token: token });
+    //res.json(task);
+  });
+};
