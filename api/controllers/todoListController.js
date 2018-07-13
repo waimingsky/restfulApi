@@ -41,7 +41,7 @@ exports.update_a_comment = function(req, res) {
 };
 
 exports.list_all_paths = function(req, res) {
-  PicPath.find({}, function(err, task) {
+  PicPath.find({}, null, {sort:{Created_date: 'desc'}},function(err, task) {
     if (err)
       res.send(err);
     res.json(task);
@@ -58,6 +58,14 @@ exports.create_a_path = function(req, res) {
   });
 };
 
+
+exports.delete_a_picpath = function(req, res) {
+  PicPath.remove({_id: req.params.taskId}, function(err, task) {
+    if (err)
+      res.send(err);
+    res.json({ message: 'picpath successfully deleted' });
+  });
+};
 
 exports.update_a_path = function(req, res) {
   PicPath.findOneAndUpdate({_id: req.params.taskId}, {$set:{like: req.params.likeValue, dislike: req.params.dislikeValue}}, {new: true}, function(err, task) {

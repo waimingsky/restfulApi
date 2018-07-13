@@ -14,6 +14,9 @@ module.exports = function(app) {
     .delete(todoList.delete_a_task);
 
 
+  app.route('/picPaths/:taskId')
+    .delete(todoList.delete_a_picpath);
+
   app.route('/picPaths')
     .get(todoList.list_all_paths)
     .post(todoList.create_a_path);
