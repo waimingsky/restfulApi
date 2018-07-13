@@ -64,7 +64,8 @@ var PicPathSchema = new Schema({
 var UserInfoSchema = new Schema({
   username: {
     type: String,
-    required: 'Kindly enter new username'
+    required: 'Kindly enter new username',
+    unique : true
   },
   password: {
     type: String,
