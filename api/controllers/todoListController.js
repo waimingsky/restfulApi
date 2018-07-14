@@ -177,7 +177,7 @@ exports.create_a_userinfo = function(req, res) {
 };
 
 
-exports.read_a_userinfo = function(req, res) {
+exports.user_authentication = function(req, res) {
   UserInfo.findOne({username: req.body.username}, function(err, task) {
     if (err)  
       return res.send(err);
@@ -194,5 +194,13 @@ exports.read_a_userinfo = function(req, res) {
     });
     res.status(200).send({ auth: true, token: token });
     //res.json(task);
+  });
+};
+
+exports.read_a_userinfos = function(req, res) {
+  UserInfo.find({username: req.params.username}, function(err, task) {
+    if (err)
+      res.send(err);
+    res.json(task);
   });
 };

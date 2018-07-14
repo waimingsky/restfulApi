@@ -43,6 +43,9 @@ module.exports = function(app) {
     .get(todoList.list_all_userinfos)
     .post(todoList.create_a_userinfo);
 
+  app.route('/userInfos/:username')
+    .get(todoList.read_a_userinfos);
+
   app.route('/userLogin')
-    .post(todoList.read_a_userinfo);
+    .post(todoList.user_authentication);
 };
