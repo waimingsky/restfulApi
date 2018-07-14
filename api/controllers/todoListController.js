@@ -5,7 +5,8 @@ var multer = require('multer');
 var mongoose = require('mongoose'),
   Task = mongoose.model('Tasks'),
   PicPath = mongoose.model('PicPaths'),
-  UserInfo = mongoose.model('UserInfos');
+  UserInfo = mongoose.model('UserInfos'),
+  PicComment = mongoose.model('PicComments');
 
 var Storage = multer.diskStorage({
      destination: function(req, file, callback) {
@@ -32,13 +33,38 @@ exports.upload_a_file = function(req, res) {
 };
 
 
-exports.update_a_comment = function(req, res) {
-  PicPath.findOneAndUpdate({_id: req.params.taskId}, {$set: req.body}, {new: true}, function(err, task) {
+exports.read_id_picComments = function(req, res) {
+  PicComment.find({id: req.params.picId},null,{sort:{Created_date: 'desc'}}, function(err, task) {
     if (err)
       res.send(err);
     res.json(task);
   });
 };
+
+exports.list_all_picComments = function(req, res) {
+  PicComment.find({}, null, {sort:{Created_date: 'desc'}},function(err, task) {
+    if (err)
+      res.send(err);
+    res.json(task);
+  });
+};
+
+exports.create_a_picComment = function(req, res) {
+  var new_comment = new PicComment(req.body);
+  new_comment.save(function(err, task) {
+    if (err)
+      res.send(err);
+    res.json(task);
+  });
+};
+
+//exports.update_a_comment = function(req, res) {
+  //PicPath.findOneAndUpdate({_id: req.params.taskId}, {$set: req.body}, {new: true}, function(err, task) {
+    //if (err)
+      //res.send(err);
+    //res.json(task);
+  //});
+//};
 
 exports.list_all_paths = function(req, res) {
   PicPath.find({}, null, {sort:{Created_date: 'desc'}},function(err, task) {

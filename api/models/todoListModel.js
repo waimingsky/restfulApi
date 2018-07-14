@@ -82,6 +82,28 @@ var UserInfoSchema = new Schema({
   address: {
     type: String,
   },
+  avatar_path: {
+    type: String,
+    default: 'default'
+  },
+  Created_date: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+var PicCommentSchema = new Schema({
+  id: {
+    type: String,
+    required: 'the corresponding picture _id'
+  },
+  username: {
+    type: String,
+    required: 'user who commented on this picture'
+  },
+  comment: {
+    type: String
+  },
   Created_date: {
     type: Date,
     default: Date.now
@@ -91,3 +113,4 @@ var UserInfoSchema = new Schema({
 module.exports = mongoose.model('Tasks', TaskSchema);
 module.exports = mongoose.model('PicPaths', PicPathSchema);
 module.exports = mongoose.model('UserInfos', UserInfoSchema);
+module.exports = mongoose.model('PicComments', PicCommentSchema);

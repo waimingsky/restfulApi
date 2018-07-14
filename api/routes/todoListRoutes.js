@@ -24,9 +24,17 @@ module.exports = function(app) {
   app.route('/picPaths/:taskId/:likeValue/:dislikeValue')
     .put(todoList.update_a_path);
 
+  //obsoleted
+  //app.route('/picPaths/updateComment/:taskId')
+    //.put(todoList.update_a_comment);
+  //
 
-  app.route('/picPaths/updateComment/:taskId')
-    .put(todoList.update_a_comment);
+  app.route('/picComments')
+    .get(todoList.list_all_picComments)
+    .post(todoList.create_a_picComment);
+
+  app.route('/picComments/:picId')
+    .get(todoList.read_id_picComments)
 
   app.route('/fileUpload')
     .post(todoList.upload_a_file);
