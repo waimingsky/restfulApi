@@ -177,6 +177,14 @@ exports.create_a_userinfo = function(req, res) {
 };
 
 
+exports.update_a_userinfo = function(req, res) {
+UserInfo.findOneAndUpdate({_id: req.params.id}, {$set: req.body}, {new: true}, function(err, task) {
+    if (err)
+      res.send(err);
+    res.json(task);
+  });
+};
+
 exports.user_authentication = function(req, res) {
   UserInfo.findOne({username: req.body.username}, function(err, task) {
     if (err)  
